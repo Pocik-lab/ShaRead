@@ -1,9 +1,10 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BooksWindow extends Window{
-    public static ArrayList<Book> books;
+    public static ArrayList<Book> books = new ArrayList<>();
 
     public BooksWindow(String name, String title, Menu menu){
         super(name,title,menu);
@@ -16,10 +17,37 @@ public class BooksWindow extends Window{
             System.out.println(i.author);
             System.out.println("_________________");
         }
+        System.out.println("Введите на f чтобы выбрать книгу, m чтобы выйти в меню");
     }
 
     @Override
-    public void save() {
+    public void save(){}
 
+    public void loadBooks(ArrayList<Book> books) {
+        this.books = books;
+    }
+
+    public void chooseBook(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите название книги:");
+        for (Book i:books){
+            if(i.name.equals(sc.nextLine())){
+                Controller.window = new BookWindow(title,name,menu,i);
+                Controller.window.display();
+            }
+        }
+    }
+
+    @Override
+    public void input(){
+        Scanner sc = new Scanner(System.in);
+        String inp = sc.nextLine();
+        if(inp.equals("m")){
+            this.save();
+            menu.isActive = true;
+        }
+        else if(inp.equals("f")){
+            chooseBook();
+        }
     }
 }

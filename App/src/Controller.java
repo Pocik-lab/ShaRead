@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Controller {
-    public Window window;
+    public static Window window;
     public Menu menu;
 
     private boolean exit;
@@ -32,20 +32,18 @@ public class Controller {
     }
 
     public void menuInput() throws Exception {
+        window.save();
+        menu.display();
         Scanner sc = new Scanner(System.in);
-        if(sc.nextLine().equals("m")){
-            window.save();
-            menu.display();
-
-            String input = sc.nextLine();
-            if(input.equals("m")){
-                window.display();
-            }else if(isInt(input) && Integer.parseInt(input) == 0)
+        String input = sc.nextLine();
+        if(input.equals("m")){
+             window.display();
+            }
+        else if(isInt(input) && Integer.parseInt(input) == 0)
                 exit = true;
-            else if(isInt(input) && Integer.parseInt(input)>0 && Integer.parseInt(input)<8){
+        else if(isInt(input) && Integer.parseInt(input)>0 && Integer.parseInt(input)<8){
                 window = menu.createWindow(window, Integer.parseInt(input));
                 window.display();
-            }
         }
         menu.isActive = false;
     }
