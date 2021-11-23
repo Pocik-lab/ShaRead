@@ -24,6 +24,11 @@ public class BooksWindow extends Window{
     @Override
     public void save(){}
 
+    public void loadBooks(ArrayList<Book> books) {
+        this.books = books;
+    }
+
+
     public void chooseBook(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите название книги:");
@@ -34,7 +39,6 @@ public class BooksWindow extends Window{
             }
         }
     }
-
     @Override
     public void input(){
         Scanner sc = new Scanner(System.in);
@@ -45,6 +49,10 @@ public class BooksWindow extends Window{
         }
         else if(inp.equals("f")){
             chooseBook();
+        }
+        else {
+            System.out.println("Такой книги нет.");
+            display();
         }
     }
 }

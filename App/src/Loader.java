@@ -1,9 +1,7 @@
 package com.company;
 
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 
 public class Loader {
@@ -24,7 +22,6 @@ public class Loader {
 
     //Загружает новую книгу в коллекцию книг
     public static boolean load(String path, String tempName){
-        char[] array = new char[250];
         String name;
         String author;
         ArrayList<String> pages = new ArrayList<>();
@@ -32,17 +29,27 @@ public class Loader {
             BufferedReader reader = new BufferedReader(new FileReader(path + tempName),10000);
             name = reader.readLine();
             author = reader.readLine();
-            while ( reader.read(array) > 0)
-            {
-                pages.add(String.copyValueOf(array));
+
+            int maxLine = 40;
+
+            boolean endRead = false;
+            while (!endRead){
+                String tmpPage = new String("");
+                for(int i = 0; i < maxLine; i = i + 1){
+                    String newPartPage = reader.readLine();
+                    if(newPartPage == null){
+                        endRead = true;
+                        break;
+                    }
+                    tmpPage = String.join("\n", tmpPage, newPartPage);
+                }
+                pages.add(tmpPage);
             }
+
             reader.close();
             BooksWindow.books.add(new Book(name, author, pages));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            return false;
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
             return false;
         }
         return true;

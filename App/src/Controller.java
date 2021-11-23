@@ -1,5 +1,6 @@
 package com.company;
 
+import java.security.spec.ECField;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -19,8 +20,10 @@ public class Controller {
         window.display();
         while (!exit){
             try {
-                if(menu.isActive)
+                if(menu.isActive){
+                    menu.display();
                     menuInput();
+                }
                 else
                     window.input();
             }
@@ -31,21 +34,34 @@ public class Controller {
         System.out.println("До свидания!");
     }
 
-    public void menuInput() throws Exception {
+    public void menuInput() {
         window.save();
-        menu.display();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        if(input.equals("m")){
-             window.display();
-            }
-        else if(isInt(input) && Integer.parseInt(input) == 0)
-                exit = true;
-        else if(isInt(input) && Integer.parseInt(input)>0 && Integer.parseInt(input)<8){
-                window = menu.createWindow(window, Integer.parseInt(input));
+        try{
+            if(input.equals("m")){
                 window.display();
+            }
+            else if(isInt(input) && Integer.parseInt(input) == 0)
+                exit = true;
+            else if(isInt(input) && Integer.parseInt(input)>0 && Integer.parseInt(input)<9 && BookWindow.curBook != null){
+                window = menu.createWindow(window, Integer.parseInt(input));
+                menu.isActive = false;
+                window.display();
+
+            }
+            else if(isInt(input) && Integer.parseInt(input)>1 && Integer.parseInt(input)<9){
+                window = menu.createWindow(window, Integer.parseInt(input));
+                menu.isActive = false;
+                window.display();
+            }
+            else {
+                System.out.println("Введите заново!");
+            }
         }
-        menu.isActive = false;
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public boolean isInt(String string) {
@@ -60,4 +76,5 @@ public class Controller {
         }
         return CorrectValues;
     }
+
 }

@@ -26,10 +26,7 @@ public class Menu {
             case 1:
                 name = "LastPageWindow";
                 title = "Последняя страница";
-                if(BookWindow.curBook != null)
-                    resultWindow = new BookWindow(name, title, this, BookWindow.curBook);
-                else
-                    throw new Exception("Не открывали ни одной книги!");
+                resultWindow = new BookWindow(name, title, this, BookWindow.curBook);
                 break;
             case 2:
                 name = "Books";
@@ -44,39 +41,39 @@ public class Menu {
             case 4:
                 name = "Tasks";
                 title = "Задания";
-                resultWindow = new TasksWindow(name, title, this);
+           //     resultWindow = new TasksWindow(name, title, this);
                 break;
             case 5:
                 name = "Progress";
                 title = "Прогресс";
-                resultWindow = new ProgressWindow(name, title, this);
+              //  resultWindow = new ProgressWindow(name, title, this);
                 break;
             case 6:
                 name = "Achievement";
                 title = "Достижения";
-                resultWindow = new AchievementWindow(name, title, this);
+           //     resultWindow = new AchievementWindow(name, title, this);
                 break;
             case 7:
-                if (user.equals("parent")){
-                    user = "child";
-                    resultWindow = tempWindow;
-                }
-                else if(user.equals("child")) {
-                    for (int i = 0; i < 3; i++) {
-                        boolean success = Authentication.enter();
-                        if (success) {
-                            user = "parent";
-                            break;
-                        } else
-                            System.out.println("Количество попыток - " + Integer.toString(2 - i));
+                    if (user.equals("parent")){
+                        user = "child";
                         resultWindow = tempWindow;
-                        if (i == 2) {
-                            System.out.println("Количество попыток закончилось");
+                    }
+                    else if(user.equals("child")) {
+                        for (int i = 0; i < 3; i++) {
+                            boolean success = Authentication.enter();
+                            if (success) {
+                                user = "parent";
+                                break;
+                            } else
+                                System.out.println("Количество попыток - " + Integer.toString(2 - i));
+                            resultWindow = tempWindow;
+                            if (i == 2) {
+                                System.out.println("Количество попыток закончилось");
+                            }
                         }
                     }
-                }
-                else throw new Exception("Alien!");
-                break;
+                    else throw new Exception("Alien!");
+                    break;
             case 8:
                 name = "About";
                 title = "О приложении";
@@ -90,7 +87,7 @@ public class Menu {
 
     public void display(){
         System.out.println("ShaRead");
-        System.out.println("Последняя страница ---> 1");
+        if(BookWindow.curBook != null)  System.out.println("Последняя страница ---> 1");
         System.out.println("Книги ---> 2");
         System.out.println("Аннотации ---> 3");
         System.out.println("Задания ---> 4");
