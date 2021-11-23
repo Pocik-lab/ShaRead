@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Book implements Serializable {
     public String name;
     public String author;
-    public int lastPage = 0;
     public int curPage = 0;
     public ArrayList<String> pages;
 
@@ -17,11 +16,16 @@ public class Book implements Serializable {
     }
 
     public int countPage(){
-        return pages.size()+1;
+        return pages.size();
     }
 
     public void displayCurPage(){
         System.out.println(pages.get(this.curPage));
-        System.out.println("<-----p             n----->");
+        if(curPage > 0 && curPage < countPage() - 1)
+            System.out.println("<-----p             n----->");
+        else if(curPage == 0)
+            System.out.println("n----->");
+        else
+            System.out.println("<-----p");
     }
 }

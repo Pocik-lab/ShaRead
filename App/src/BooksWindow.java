@@ -17,15 +17,12 @@ public class BooksWindow extends Window{
             System.out.println(i.author);
             System.out.println("_________________");
         }
-        System.out.println("Введите на f чтобы выбрать книгу, m чтобы выйти в меню");
+        System.out.println("Введите f чтобы выбрать книгу");
+        System.out.println("m - меню");
     }
 
     @Override
     public void save(){}
-
-    public void loadBooks(ArrayList<Book> books) {
-        this.books = books;
-    }
 
     public void chooseBook(){
         Scanner sc = new Scanner(System.in);

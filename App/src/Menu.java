@@ -26,7 +26,10 @@ public class Menu {
             case 1:
                 name = "LastPageWindow";
                 title = "Последняя страница";
-                resultWindow = new LastPageWindow(name, title, this);
+                if(BookWindow.curBook != null)
+                    resultWindow = new BookWindow(name, title, this, BookWindow.curBook);
+                else
+                    throw new Exception("Не открывали ни одной книги!");
                 break;
             case 2:
                 name = "Books";
@@ -63,6 +66,7 @@ public class Menu {
                         boolean success = Authentication.enter();
                         if (success) {
                             user = "parent";
+                            break;
                         } else
                             System.out.println("Количество попыток - " + Integer.toString(2 - i));
                         resultWindow = tempWindow;

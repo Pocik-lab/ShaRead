@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class BookWindow extends Window{
-    public Book curBook;
+    public static Book curBook;
 
     public BookWindow(String title, String name, Menu menu,Book curBook){
         super(name,title,menu);
@@ -13,25 +13,16 @@ public class BookWindow extends Window{
     @Override
     public void display(){
         curBook.displayCurPage();
+        System.out.println("m - меню");
     }
 
     @Override
     public void save(){
     }
 
-    public void changePage(){
-        Scanner sc = new Scanner(System.in);
-        String buff = sc.nextLine();
-        while(true){
-            if(buff.equals("n")){
-                curBook.curPage += 1;
-                break;
-            }
-            else if(buff.equals("p")){
-                curBook.curPage -= 1;
-                break;
-            }
-        }
+    public void changePage(int offset){
+        if(curBook.curPage + offset > -1 && curBook.curPage + offset < curBook.countPage() )
+            curBook.curPage += offset;
     }
 
     @Override
@@ -42,8 +33,11 @@ public class BookWindow extends Window{
             this.save();
             menu.isActive = true;
         }
-        else if(inp.equals("n") || inp.equals("p")){
-            changePage();
+        else if(inp.equals("n") && curBook.curPage < curBook.countPage() - 1){
+            changePage(1);
+            display();
+        } else if(inp.equals("p") && curBook.curPage > 0){
+            changePage(-1);
             display();
         }
     }
