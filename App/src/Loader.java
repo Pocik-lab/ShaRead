@@ -2,7 +2,6 @@ package com.company;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class Loader {
 
@@ -46,9 +45,7 @@ public class Loader {
             BufferedReader reader = new BufferedReader(new FileReader(path),10000);
             name = reader.readLine();
             author = reader.readLine();
-
             int maxLine = 40;
-
             boolean endRead = false;
             while (!endRead){
                 String tmpPage = new String("");
@@ -62,7 +59,6 @@ public class Loader {
                 }
                 pages.add(tmpPage);
             }
-
             reader.close();
             BooksWindow.books.add(new Book(name, author, pages));
         } catch (IOException e) {
@@ -72,8 +68,6 @@ public class Loader {
         }
         return true;
     }
-
-
 
     public static boolean saveBooks(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(booksFile)))
@@ -97,18 +91,5 @@ public class Loader {
             ex.printStackTrace();
             return false;
         }
-    }
-
-    public static void saveProps(String nameBook, int lastPage, String password){
-        File file = new File("D:/University/ShaRead/");
-        Properties props = new Properties();
-        try {
-            props.load(new FileReader(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        props.setProperty("Name",nameBook);
-        props.setProperty("LastPage",Integer.toString(lastPage));
-        props.setProperty("Password", password);
     }
 }

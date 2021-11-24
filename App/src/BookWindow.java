@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Scanner;
-
 public class BookWindow extends Window{
     public static Book curBook;
 
@@ -28,8 +26,7 @@ public class BookWindow extends Window{
 
     @Override
     public void input(){
-        Scanner sc = new Scanner(System.in);
-        String inp = sc.nextLine();
+        String inp = Controller.sc.nextLine();
         if(inp.equals("m")){
             this.save();
             menu.isActive = true;

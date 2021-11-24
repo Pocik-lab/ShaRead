@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BooksWindow extends Window{
     public static ArrayList<Book> books = new ArrayList<>();
@@ -28,15 +27,15 @@ public class BooksWindow extends Window{
     public void save(){}
 
     public void deleteBook(){
-        Scanner sc = new Scanner(System.in);
         if (books.isEmpty())
         {
             System.out.println("Книг нет!\n");
+            Controller.window.display();
             return;
         }
         System.out.println("\nВведите название книги:");
         for (Book i:books){
-            if(i.name.equals(sc.nextLine())){
+            if(i.name.equals(Controller.sc.nextLine())){
                 books.remove(i);
                 System.out.println("Книга удалена!\n");
                 Controller.window.display();
@@ -48,15 +47,15 @@ public class BooksWindow extends Window{
     }
 
     public void chooseBook(){
-        Scanner sc = new Scanner(System.in);
         if (books.isEmpty())
         {
             System.out.println("Книг нет!\n");
+            Controller.window.display();
             return;
         }
         System.out.println("\nВведите название книги:");
         for (Book i:books){
-            if(i.name.equals(sc.nextLine())){
+            if(i.name.equals(Controller.sc.nextLine())){
                 Controller.window = new BookWindow(title,name,menu,i);
                 Controller.window.display();
                 return;
@@ -66,19 +65,16 @@ public class BooksWindow extends Window{
         display();
     }
 
-
     public void addBook(){
-        Scanner sc = new Scanner(System.in);
         System.out.println("\nВведите полный путь к файлу:");
-        String path = sc.nextLine();
+        String path = Controller.sc.nextLine();
         Loader.loadBook(path);
         display();
     }
 
     @Override
     public void input(){
-        Scanner sc = new Scanner(System.in);
-        String inp = sc.nextLine();
+        String inp = Controller.sc.nextLine();
         if(inp.equals("m")){
             this.save();
             menu.isActive = true;

@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Scanner;
-
 public class AnnotationWindow extends Window{
     BookAnnotation curAnnotation;
     Boolean isWriting;
@@ -11,7 +9,6 @@ public class AnnotationWindow extends Window{
         this.curAnnotation = curAnnotation;
         this.isWriting = isWriting;
     }
-
 
     @Override
     public void display() {
@@ -38,9 +35,8 @@ public class AnnotationWindow extends Window{
 
     @Override
     public void input(){
-        Scanner sc = new Scanner(System.in);
         if(!isWriting){
-            String inp = sc.nextLine();
+            String inp = Controller.sc.nextLine();
             if(inp.equals("m")){
                 this.save();
                 menu.isActive = true;
@@ -53,12 +49,12 @@ public class AnnotationWindow extends Window{
             }
         }
         else {
-            if(curAnnotation.name.equals("")) curAnnotation.name = sc.nextLine();
+            if(curAnnotation.name.equals("")) curAnnotation.name = Controller.sc.nextLine();
             else if(curAnnotation.text.equals("")) {
                 display();
                 curAnnotation.text = "";
                 while(true){
-                    String current = sc.nextLine();
+                    String current = Controller.sc.nextLine();
                     if(current.equals(""))break;
                     curAnnotation.text = String.join("\n",curAnnotation.text ,current);
                 }
@@ -70,4 +66,3 @@ public class AnnotationWindow extends Window{
         }
     }
 }
-

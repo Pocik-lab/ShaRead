@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AnnotationsWindow extends Window {
     public static ArrayList<BookAnnotation> annotations = new ArrayList<>();
@@ -23,25 +22,27 @@ public class AnnotationsWindow extends Window {
     }
 
     public void chooseAnnotation(){
-        Scanner sc = new Scanner(System.in);
+        if (annotations.isEmpty())
+        {
+            System.out.println("Аннотаций нет!\n");
+            Controller.window.display();
+            return;
+        }
         System.out.println("\nВведите название аннотации:");
-
         for (BookAnnotation i:annotations){
-            if(i.name.equals(sc.nextLine())){
+            if(i.name.equals(Controller.sc.nextLine())){
                 Controller.window = new AnnotationWindow(title,name,menu,i,false);
                 Controller.window.display();
                 return;
             }
         }
-
         System.out.println("Аннотация не найдена!\n");
         display();
     }
 
     @Override
     public void input() {
-        Scanner sc = new Scanner(System.in);
-        String inp = sc.nextLine();
+        String inp = Controller.sc.nextLine();
         if(inp.equals("m")){
             this.save();
             menu.isActive = true;

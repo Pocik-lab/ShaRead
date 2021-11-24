@@ -16,4 +16,3 @@ public class BookAnnotation implements Serializable {
         System.out.println(text);
     }
 }
-
