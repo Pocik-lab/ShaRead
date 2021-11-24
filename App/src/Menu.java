@@ -7,7 +7,6 @@ public class Menu {
     private String user;
     public boolean isActive;
 
-
     public String getUser() {
         return user;
     }
@@ -41,46 +40,50 @@ public class Menu {
             case 4:
                 name = "Tasks";
                 title = "Задания";
-           //     resultWindow = new TasksWindow(name, title, this);
+                resultWindow = new TasksWindow(name, title, this);
                 break;
             case 5:
                 name = "Progress";
                 title = "Прогресс";
-              //  resultWindow = new ProgressWindow(name, title, this);
+                resultWindow = new ProgressWindow(name, title, this);
                 break;
             case 6:
                 name = "Achievement";
                 title = "Достижения";
-           //     resultWindow = new AchievementWindow(name, title, this);
+                resultWindow = new AchievementWindow(name, title, this);
                 break;
             case 7:
-                    if (user.equals("parent")){
-                        user = "child";
+                if (user.equals("parent")){
+                    user = "child";
+                    resultWindow = tempWindow;
+                }
+                else if(user.equals("child")) {
+                    for (int i = 0; i < 3; i++) {
+                        boolean success = Authentication.enter();
+                        if (success) {
+                            user = "parent";
+                            return tempWindow;
+                        } else{
+                            System.out.println("Количество попыток - " + Integer.toString(2 - i));
+                        }
+
                         resultWindow = tempWindow;
-                    }
-                    else if(user.equals("child")) {
-                        for (int i = 0; i < 3; i++) {
-                            boolean success = Authentication.enter();
-                            if (success) {
-                                user = "parent";
-                                break;
-                            } else
-                                System.out.println("Количество попыток - " + Integer.toString(2 - i));
-                            resultWindow = tempWindow;
-                            if (i == 2) {
-                                System.out.println("Количество попыток закончилось");
-                            }
+
+                        if (i == 2) {
+                            isActive = true;
+                            System.out.println("Количество попыток закончилось");
                         }
                     }
-                    else throw new Exception("Alien!");
-                    break;
+                }
+                else throw new Exception("Alien!");
+                break;
             case 8:
                 name = "About";
                 title = "О приложении";
                 resultWindow = new AboutWindow(name, title, this);
                 break;
             default:
-                throw new Exception("Блять, нет такого окна!");
+                throw new Exception("Нет такого окна!");
         }
         return resultWindow;
     }
@@ -93,7 +96,7 @@ public class Menu {
         System.out.println("Задания ---> 4");
         System.out.println("Прогесс ---> 5");
         System.out.println("Достижения ---> 6");
-        System.out.println((user.equals("parent")? "Родитель" : "Ребенок") + " ---> 7");
+        System.out.println((!user.equals("parent")? "Родитель" : "Ребенок") + " ---> 7");
         System.out.println("О приложении ---> 8");
         System.out.println("Свернуть меню ---> m");
         System.out.println("Выйти из приложения ---> 0");

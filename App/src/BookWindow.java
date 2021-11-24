@@ -13,7 +13,8 @@ public class BookWindow extends Window{
     @Override
     public void display(){
         curBook.displayCurPage();
-        System.out.println("m - меню");
+        System.out.println("\nВернуться к списку книг - b");
+        super.display();
     }
 
     @Override
@@ -39,6 +40,13 @@ public class BookWindow extends Window{
         } else if(inp.equals("p") && curBook.curPage > 0){
             changePage(-1);
             display();
+        }
+        else if(inp.equals("b")) {
+            Controller.window = new BooksWindow("Books", "Книги", menu);
+            Controller.window.display();
+        } else {
+            System.out.println("Такой команды нет!\n");
+            Controller.window.display();
         }
     }
 }

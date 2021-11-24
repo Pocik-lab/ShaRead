@@ -16,20 +16,26 @@ public class AnnotationsWindow extends Window {
             System.out.println(i.name);
             System.out.println("_________________");
         }
-        System.out.println("написать аннотацию - w");
-        System.out.println("выбрать аннотацию - f");
-        System.out.println("меню - m");
+        if (menu.getUser().equals("child"))
+            System.out.println("\nНаписать аннотацию - w");
+        System.out.println("Выбрать аннотацию - f");
+        super.display();
     }
 
     public void chooseAnnotation(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Введите название аннотации:");
+        System.out.println("\nВведите название аннотации:");
+
         for (BookAnnotation i:annotations){
             if(i.name.equals(sc.nextLine())){
                 Controller.window = new AnnotationWindow(title,name,menu,i,false);
                 Controller.window.display();
+                return;
             }
         }
+
+        System.out.println("Аннотация не найдена!\n");
+        display();
     }
 
     @Override
@@ -43,20 +49,19 @@ public class AnnotationsWindow extends Window {
         else if(inp.equals("f") ){
             chooseAnnotation();
         }
-        else if(inp.equals("w")){
+        else if( inp.equals("w") && (menu.getUser().equals("child")) ){
             BookAnnotation curAnnotation = new BookAnnotation("","");
             annotations.add(curAnnotation);
             Controller.window = new AnnotationWindow(title, name, menu, curAnnotation, true);
             Controller.window.display();
         }
         else {
-            System.out.println("Такой аннотации нет.");
+            System.out.println("Такой команды нет\n");
             display();
         }
     }
 
     @Override
     public void save() {
-
     }
 }

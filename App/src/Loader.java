@@ -6,9 +6,12 @@ import java.util.Properties;
 
 public class Loader {
 
-    //Загружает добавленные книги при старте программы
-    public static boolean startLoad(){
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("book.dat")))
+    private static final String annFile = "ann.dat";
+    private static final String booksFile = "book.dat";
+
+    //Загружает добавленные книги
+    public static boolean loadListBook(){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(booksFile)))
         {
             ArrayList<Book> loadBooks =(ArrayList<Book>)ois.readObject();
             BooksWindow.books = loadBooks;
@@ -20,13 +23,27 @@ public class Loader {
         return true;
     }
 
+    //Загружает добавленные аннотации
+    public static boolean loadListAnnotation(){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(annFile)))
+        {
+            ArrayList<BookAnnotation> loadAn =(ArrayList<BookAnnotation>)ois.readObject();
+            AnnotationsWindow.annotations = loadAn;
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     //Загружает новую книгу в коллекцию книг
-    public static boolean load(String path, String tempName){
+    public static boolean loadBook(String path){
         String name;
         String author;
         ArrayList<String> pages = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path + tempName),10000);
+            BufferedReader reader = new BufferedReader(new FileReader(path),10000);
             name = reader.readLine();
             author = reader.readLine();
 
@@ -49,16 +66,31 @@ public class Loader {
             reader.close();
             BooksWindow.books.add(new Book(name, author, pages));
         } catch (IOException e) {
+            System.out.println("Файл не найден\n");
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
+
+
     public static boolean saveBooks(){
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("book.dat")))
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(booksFile)))
         {
             oos.writeObject(BooksWindow.books);
+            return true;
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean saveAnnotation(){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(annFile)))
+        {
+            oos.writeObject(AnnotationsWindow.annotations);
             return true;
         }
         catch(Exception ex){

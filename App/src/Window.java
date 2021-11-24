@@ -20,14 +20,15 @@ public abstract class Window {
         this.menu = menu;
     }
 
-    public abstract void display();
+    public void display(){
+        System.out.println("Меню - m\n");
+    };
     public abstract void save();
 
     public void input(){
         Scanner sc = new Scanner(System.in);
         if(sc.nextLine().equals("m")){
             this.save();
-            menu.display();
             menu.isActive = true;
         }
     }

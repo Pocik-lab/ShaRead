@@ -22,10 +22,12 @@ public class Book implements Serializable {
     public void displayCurPage(){
         System.out.println(pages.get(this.curPage));
         if(curPage > 0 && curPage < countPage() - 1)
-            System.out.println("<-----p             n----->");
+            System.out.println("\n<-----p             n----->");
+        else if(countPage() == 1)
+            System.out.println();
         else if(curPage == 0)
-            System.out.println("n----->");
+            System.out.println("\nn----->");
         else
-            System.out.println("<-----p");
+            System.out.println("\n<-----p");
     }
 }

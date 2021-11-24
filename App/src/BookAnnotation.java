@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class BookAnnotation implements Serializable {
     String name;
@@ -13,8 +12,8 @@ public class BookAnnotation implements Serializable {
     }
 
     public void display(){
-        System.out.println("-----   " + name + "   -----");
+        System.out.println("\n-----   " + name + "   -----");
         System.out.println(text);
     }
-
 }
+

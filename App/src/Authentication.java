@@ -14,3 +14,4 @@ public class Authentication {
         return password.equals(Authentication.password);
     }
 }
+

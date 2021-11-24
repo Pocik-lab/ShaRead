@@ -14,12 +14,11 @@ public class AboutWindow extends Window {
     public void display() {
         System.out.println(aboutApp);
         System.out.println("version " + version);
-        System.out.println(year);
-        System.out.println("Нажмите m для выхода в меню");
+        System.out.println(year + "\n");
+        super.display();
     }
 
     @Override
     public void save() {
-
     }
 }

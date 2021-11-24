@@ -17,16 +17,18 @@ public class AnnotationWindow extends Window{
     public void display() {
         if(isWriting){
             if(curAnnotation.name.equals("")){
-                System.out.println("Введите название аннотации: ");
+                System.out.println("\nВведите название аннотации: ");
             }
             else{
-                System.out.println("Чтобы завершить ввод нажмите ENTER 2 раза.");
+                System.out.println("\nЧтобы завершить ввод нажмите ENTER 2 раза.");
                 System.out.println("Пишите аннотацию:");
             }
         }
         else {
             curAnnotation.display();
-            System.out.println("===============\nменю - m");
+            System.out.println("===============================\n");
+            System.out.println("Вернуться к списку аннотаций - b");
+            super.display();
         }
     }
 
@@ -42,6 +44,12 @@ public class AnnotationWindow extends Window{
             if(inp.equals("m")){
                 this.save();
                 menu.isActive = true;
+            }else if(inp.equals("b")) {
+                Controller.window = new AnnotationsWindow("Annotations", "Аннотации", menu);
+                Controller.window.display();
+            } else {
+                System.out.println("Такой команды нет!\n");
+                Controller.window.display();
             }
         }
         else {
@@ -62,3 +70,4 @@ public class AnnotationWindow extends Window{
         }
     }
 }
+
